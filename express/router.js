@@ -1,12 +1,12 @@
-var fs = require('fs');
-var connect = require('./connect');
-var articles = {
+const fs = require('fs');
+const connect = require('./connect');
+let articles = {
     "1": "first article",
     "2": "second article",
     "3": "third article"
 };
 
-var app = connect();
+let app = connect();
 
 require('./middleware')(app);
 
@@ -42,6 +42,6 @@ app.use(function (req, res) {
 
 app.listen(8080);
 
-/*var server = http.createServer(app);
+/*let server = http.createServer(app);
 server.listen(8080);*/
 

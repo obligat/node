@@ -1,6 +1,7 @@
-var url = require('url');
-var http = require('http');
-var proto = {};
+'use strict';
+const url = require('url');
+const http = require('http');
+const proto = {};
 
 function createServer() {
     function app(req, res) {
@@ -14,8 +15,8 @@ function createServer() {
 }
 
 proto.use = function (route,fn) {
-    var handle = fn;
-    var route = route;
+    let handle = fn;
+    let route = route;
     if(typeof route !== 'string'){
         handle = route;
         route = "/";
@@ -24,19 +25,19 @@ proto.use = function (route,fn) {
 };
 
 proto.handle = function (req, res) {
-    var stack = this.stack;
-    var index = 0;
+    let stack = this.stack;
+    let index = 0;
 
     function next(err) {
         // stack[index++](req, res, next);
-        var layer = stack[index++];
-        var route = layer.path;
-        var handle = layer.handle;
+        let layer = stack[index++];
+        let route = layer.path;
+        let handle = layer.handle;
 
-        var path = url.parse(req.url).pathname;
+        let path = url.parse(req.url).pathname;
         if(path.startsWith(route)){
             if(err){
-                if(handle.length == 4){
+                if(handle.length === 4){
                     handle(err,req,res,next); // 错误处理中间件
                 }else{
                     next(err);
@@ -55,7 +56,7 @@ proto.handle = function (req, res) {
 
 
 proto.listen = function (port) {
-    var server = http.createServer(this);
+    let server = http.createServer(this);
     server.listen(port)
 };
 

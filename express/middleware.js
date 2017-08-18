@@ -1,10 +1,10 @@
-var url = require('url');
-var fs = require('fs');
+const url = require('url');
+const fs = require('fs');
 module.exports = function (app) {
     app.use(function (req, res, next) {
-        var urlObj = url.parse(req.url, true);
-        var pathname = urlObj.pathname;
-        var query = urlObj.query;
+        let urlObj = url.parse(req.url, true);
+        let pathname = urlObj.pathname;
+        let query = urlObj.query;
         req.path = pathname;
         req.query = query;
         next()
@@ -12,14 +12,14 @@ module.exports = function (app) {
 
     app.use(function (req, res, next) {
         res.render = function (path, data) {
-            var str = fs.readFileSync(path, 'utf8');
-            var tpl = str.replace(/<%=([\s\S]+?)%>/g, function (match, group) {
+            let str = fs.readFileSync(path, 'utf8');
+            let tpl = str.replace(/<%=([\s\S]+?)%>/g, function (match, group) {
                 return "'+obj." + group + "+'";
             });
 
-            tpl = "var tpl ='" + tpl + "'\n return tpl;";
+            tpl = "let tpl ='" + tpl + "'\n return tpl;";
 
-            var compile = new Function('obj', tpl);
+            let compile = new Function('obj', tpl);
             this.send(compile(data));
         };
 
