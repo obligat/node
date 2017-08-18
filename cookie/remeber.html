@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>remember</title>
+    <script>
+        function checkCookie() {
+            var username = getCookie('username');
+            if (username) {
+                alert('see again');
+                document.getElementById('username').value = username;
+            } else {
+                username = prompt('input username');
+                if (username) {
+                    setCookie('username', username);
+                }
+            }
+        }
+
+        function setCookie(key, value) {
+            document.cookie = key + '=' + value;
+        }
+
+        function getCookie(key) {
+            if (document.cookie) {
+                var pairs = document.cookie.split('; ');
+                for (var i = 0; i < pairs.length; i++) {
+                    var vals = pairs[i].split('=');
+                    if (vals[0] == key) {
+                        return vals[1];
+                    }
+                }
+
+                return '';
+
+            } else {
+                return '';
+            }
+
+        }
+    </script>
+</head>
+<body onLoad="checkCookie()">
+<input type="text" id="username">
+</body>
+</html>
