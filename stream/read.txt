@@ -1,0 +1,7 @@
+GET /play/video HTTP/1.1
+Host: pan.baidu.com
+Connection: keep-alive
+Cache-Control: max-age=0
+Upgrade-Insecure-Requests: 1
+
+name=da da da
